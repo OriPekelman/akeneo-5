@@ -1,67 +1,37 @@
-Akeneo PIM Community Standard Edition
-=====================================
+# Akeneo PIM Community Edition for Platform.sh
 
-Welcome to Akeneo PIM.
+<p align="center">
+<a href="https://console.platform.sh/projects/create-project?template=https://raw.githubusercontent.com/platformsh/template-builder/master/templates/akeneo/.platform.template.yaml&utm_content=akeneo&utm_source=github&utm_medium=button&utm_campaign=deploy_on_platform">
+    <img src="https://platform.sh/images/deploy/lg-blue.svg" alt="Deploy on Platform.sh" width="180px" />
+</a>
+</p>
 
-This repository is used to create a new PIM project based on Akeneo PIM.
+This template builds the Akeneo PIM system for Platform.sh.  By default it uses the "minimal" install profile.  It requires at least a Medium plan as it uses a Worker instance for queue processing.
 
-If you want to contribute to the Akeneo PIM (and we will be pleased if you do!), you can fork the repository https://github.com/akeneo/pim-community-dev and submit a pull request.
+Akeneo is a Product Information Management (PIM) tool, which acts as a central store for product information, catalog information, and inventory management.
 
-Installation instructions
--------------------------
+## Services
 
-### Development Installation with Docker
+* PHP 7.4
+* MySQL 8.0
+* Elasticsearch 7.5
+* Network-Storage 1.0
 
-## Requirements
- - Docker 19+
- - docker-compose >= 1.24
- - make
+## Post-install
 
-## Creating a project and starting the PIM
-The following steps will install Akeneo PIM in the current directory (must be empty) and launch it from there:
+1. The first time the site is deployed, Akeneo's command line installer will run and initialize the database.  It will not run again unless the `installer/.platform.installed` is removed.  (Do not remove that file unless you want the installer to run on the next deploy!)
 
-```bash
-$ docker run -u www-data -v $(pwd):/srv/pim -w /srv/pim --rm akeneo/pim-php-dev:5.0 \
-    php -d memory_limit=4G /usr/local/bin/composer create-project --prefer-dist \
-    akeneo/pim-community-standard /srv/pim "4.0.*@stable"
-```
-```
-$ make
+2. The installer will create an administrator account with username/password `admin`/`admin`.  **You need to change this password immediately. Not doing so is a security risk**.
 
-```
+## Customizations
 
-The PIM will be available on http://localhost:8080/, with `admin/admin` as default credentials.
+The following changes have been made relative to Akeneo as it is downloaded from Akeneo.com.  If using this project as a reference for your own existing project, replicate the changes below to your project.
 
-To shutdown your PIM: `make down`
+* The `.platform.app.yaml`, `.platform/services.yaml`, and `.platform/routes.yaml` files have been added.  These provide Platform.sh-specific configuration and are present in all projects on Platform.sh.  You may customize them as you see fit.
+* The [`.environment`](.environment) file maps the Platform.sh environment variables to those expected by Akeneo.  You can add additional environment setup there as needed but do not remove the lines that already exist.
 
-### Installation without Docker
+## References
 
-## Requirements
- - php 7.4
- - composer 2.0
-
-```bash
-$ php -d memory_limit=4G /usr/local/bin/composer create-project --prefer-dist \
-    akeneo/pim-community-standard /srv/pim "5.0.*@stable"
-```
-
-You will need to change the `.env` file to configure the access to your MySQL and ES server.
-
-Once done, you can run:
-
-```
-$ NO_DOCKER=true make
-
-```
-
-For more details, please follow https://docs.akeneo.com/5.0/install_pim
-
-Upgrade instructions
---------------------
-
-To upgrade Akeneo PIM to a newer version, please follow:
-https://docs.akeneo.com/5.0/migrate_pim/index.html
-
-Changelog
----------
-You can check out the changelog files in https://github.com/akeneo/pim-community-dev.
+* [Akeneo](https://www.akeneo.com/)
+* [PHP on Platform.sh](https://docs.platform.sh/languages/php.html)
+.
