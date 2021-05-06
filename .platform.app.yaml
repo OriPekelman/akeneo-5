@@ -73,9 +73,9 @@ mounts:
         source: local
         source_path: "var/file_storage"
     # For local generated files (overlapping mounts)
-    "var/file_storage/fixtures":
+    "var/file_storage/archive/fixtures":
         source: local
-        source_path: "var/file_storage/fixtures"
+        source_path: "var/file_storage/archive/fixtures"
     # Sharing job files
     "var/file_storage/archive/export":
         source: service
