@@ -72,6 +72,10 @@ mounts:
     "var/file_storage":
         source: local
         source_path: "var/file_storage"
+    # For local generated files (overlapping mounts)
+    "var/file_storage/fixtures":
+        source: local
+        source_path: "var/file_storage/fixtures"
     # Sharing job files
     "var/file_storage/archive/export":
         source: service
@@ -90,7 +94,7 @@ mounts:
         source: service
         service: jobs
         source_path: "public/media/exports"
-
+/app/var/file_storage/archive/fixtures/fixtures_currency_csv/1/input
 hooks:
     build: |
         set -e
