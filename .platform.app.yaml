@@ -94,7 +94,6 @@ mounts:
         source: service
         service: jobs
         source_path: "public/media/exports"
-/app/var/file_storage/archive/fixtures/fixtures_currency_csv/1/input
 hooks:
     build: |
         set -e
